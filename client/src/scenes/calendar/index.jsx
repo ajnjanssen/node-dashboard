@@ -9,6 +9,7 @@ import {
   List,
   ListItem,
   ListItemText,
+  Modal,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -38,9 +39,25 @@ const Calendar = () => {
 
   const handleEventClick = (selected) => {
     if (
-      window.confirm(
-        `Are you sure you want to delete the event '${selected.event.title}'`
-      )
+      // window.confirm(
+      //   `Are you sure you want to delete the event '${selected.event.title}'`
+      // )
+      <Modal
+      // eslint-disable-next-line no-restricted-globals
+      open={open}
+      // onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box >
+        <Typography id="modal-modal-title" variant="h6" component="h2">
+          Text in a modal
+        </Typography>
+        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+        </Typography>
+      </Box>
+    </Modal>
     ) {
       selected.event.remove();
     }
