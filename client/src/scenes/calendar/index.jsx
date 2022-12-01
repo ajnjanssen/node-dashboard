@@ -1,7 +1,7 @@
+import FullCalendar, { formatDate } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
-import FullCalendar, { formatDate } from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import {
   Box,
@@ -54,6 +54,8 @@ const Calendar = () => {
   const handleDateClick = (selected) => {
     const title = prompt("Please enter a new title for your event");
     const calendarApi = selected.view.calendar;
+console.log(calendarApi);
+
     calendarApi.unselect();
 
     if (title) {
@@ -71,12 +73,13 @@ const Calendar = () => {
     handleOpen();
     // selected.event.remove();
     // setEventTitle(selected.event.title);
-    // currentSelected(selected);
+    setCurrentSelected(selected);
   };
 
-  const deleteEvent = (currentSelected) => {
-    currentSelected.remove();
-
+  const deleteEvent = () => {
+    // currentSelected.remove();
+    // selected.event.remove();
+    currentSelected.event.remove();
     handleClose();
   };
   return (
