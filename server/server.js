@@ -150,6 +150,18 @@ app.get("/api", (req, res) => {
         registrarId: 123512,
       },
     ],
+    mockAgendaItems: [
+      {
+        id: "12315",
+        title: "All-day event",
+        date: "2022-09-14",
+      },
+      {
+        id: "5123",
+        title: "Timed event",
+        date: "2022-09-28",
+      },
+    ],
     mockDataInvoices: [
       {
         id: 1,
