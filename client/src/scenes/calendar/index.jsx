@@ -1,9 +1,8 @@
-import { useState } from "react";
-import FullCalendar, { formatDate } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
+import FullCalendar, { formatDate } from "@fullcalendar/react";
+import timeGridPlugin from "@fullcalendar/timegrid";
 import {
   Box,
   List,
@@ -11,15 +10,46 @@ import {
   ListItemText,
   Modal,
   Typography,
-  useTheme,
+  useTheme
 } from "@mui/material";
+import Button from "@mui/material/Button";
+import react, { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 const Calendar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
   const [currentEvents, setCurrentEvents] = useState([]);
+  const [eventTitle, setEventTitle] = useState("");
+  const [open, setOpen] = useState(false);
+  const [currentSelected, setCurrentSelected] = useState([]);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const [backendData, setBackendData] = useState([{}]);
+  // console.log(backendData);
+  useEffect(() => {
+    fetch("/api")
+      .then((response) => response.json())
+      .then((data) => {
+        setBackendData(data);
+      });
+  }, []);
 
   const handleDateClick = (selected) => {
     const title = prompt("Please enter a new title for your event");
@@ -38,37 +68,21 @@ const Calendar = () => {
   };
 
   const handleEventClick = (selected) => {
-    if (
-      // window.confirm(
-      //   `Are you sure you want to delete the event '${selected.event.title}'`
-      // )
-      <Modal
-      // eslint-disable-next-line no-restricted-globals
-      open={open}
-      // onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
-      <Box >
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          Text in a modal
-        </Typography>
-        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-        </Typography>
-      </Box>
-    </Modal>
-    ) {
-      selected.event.remove();
-    }
+    handleOpen();
+    // selected.event.remove();
+    // setEventTitle(selected.event.title);
+    // currentSelected(selected);
   };
 
+  const deleteEvent = (currentSelected) => {
+    currentSelected.remove();
+
+    handleClose();
+  };
   return (
     <Box m="20px">
       <Header title="Calendar" subtitle="Full Calendar Interactive Page" />
-
       <Box display="flex" justifyContent="space-between">
-        {/* CALENDAR SIDEBAR */}
         <Box
           flex="1 1 20%"
           backgroundColor={colors.primary[400]}
@@ -102,43 +116,72 @@ const Calendar = () => {
             ))}
           </List>
         </Box>
-
+        <Modal open={open} onClose={handleClose}>
+          <Box sx={style}>
+            <Typography
+              id="modal-modal-title"
+              class="bold"
+              variant="h4"
+              component="h2"
+            >
+              Are you sure you want to delete {eventTitle}?
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                p: 1,
+                bgcolor: "background.paper",
+                borderRadius: 1,
+              }}
+            >
+              {" "}
+              <Button onClick={deleteEvent} color="error" variant="contained">
+                Delete
+              </Button>
+              {/* <Button onClick={handleClose} color="success" variant="outlined">
+              Cancel
+            </Button>  */}
+            </Box>
+          </Box>
+        </Modal>
         {/* CALENDAR */}
         <Box flex="1 1 100%" ml="15px">
-          <FullCalendar
-            height="75vh"
-            plugins={[
-              dayGridPlugin,
-              timeGridPlugin,
-              interactionPlugin,
-              listPlugin,
-            ]}
-            headerToolbar={{
-              left: "prev,next today",
-              center: "title",
-              right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
-            }}
-            initialView="dayGridMonth"
-            editable={true}
-            selectable={true}
-            selectMirror={true}
-            dayMaxEvents={true}
-            select={handleDateClick}
-            eventClick={handleEventClick}
-            eventsSet={(events) => setCurrentEvents(events)}
-            initialEvents={[
-              {
-                id: "12315",
-                title: "All-day event",
-                date: "2022-09-14",
-              },
-              {
-                id: "5123",
-                title: "Timed event",
-                date: "2022-09-28",
-              },
-            ]}
-          />
+          {typeof backendData.mockAgendaItems === "undefined" ? (
+            <p>loading...</p>
+          ) : (
+            backendData.mockAgendaItems.map((item, i) => (
+              <FullCalendar
+                height="75vh"
+                plugins={[
+                  dayGridPlugin,
+                  timeGridPlugin,
+                  interactionPlugin,
+                  listPlugin,
+                ]}
+                headerToolbar={{
+                  left: "prev,next today",
+                  center: "title",
+                  right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
+                }}
+                initialView="dayGridMonth"
+                editable={true}
+                selectable={true}
+                selectMirror={true}
+                dayMaxEvents={true}
+                select={handleDateClick}
+                eventClick={handleEventClick}
+                eventsSet={(events) => setCurrentEvents(events)}
+                initialEvents={[
+                  {
+                    id: backendData.item,
+                    // title: backendData.item[i].title,
+                    // date: backendData.item[i].date,
+                  },
+                ]}
+              />
+            ))
+          )}
         </Box>
       </Box>
     </Box>
