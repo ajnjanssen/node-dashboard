@@ -61,9 +61,9 @@ const Team = () => {
             }
 
           >
-            {access === "admin" && <AdminPanelSettingsOutlinedIcon className="text-base-content"/>}
-            {access === "manager" && <SecurityOutlinedIcon className="text-base-content"/>}
-            {access === "user" && <LockOpenOutlinedIcon className="text-base-content"/>}
+            {access === "admin" && <AdminPanelSettingsOutlinedIcon className="text-neutral"/>}
+            {access === "manager" && <SecurityOutlinedIcon className="text-neutral"/>}
+            {access === "user" && <LockOpenOutlinedIcon className="text-neutralt"/>}
             {/* <Typography color={colors.grey[100]} sx={{ ml: "5px" }}> */}
             <Typography className="pl-2">
               {access}
@@ -74,49 +74,19 @@ const Team = () => {
     },
   ];
   return (
-    <Box className="mx-6">
-      <div>
-      <h1 className="text-primary text-6xl font-bold  uppercase">Team</h1>
-      <h3 className="text-secondary text-2xl font-light">Manage your team</h3>
-      {/*<Header color="primary" className="text-primary" title="TEAM" subtitle="Manage your team" /> */}
+    <Box className="m-5">
+      <div className="">
+      <h1 className="headTitle">Team</h1>
+      <h3 className="underTitle">Manage your team</h3>
       </div>
       <Box
-        className="m-5"
-        // m="40px 0 0 0"
+        className="mt-6"
         height="75vh"
-        sx={{
-          // "& .MuiDataGrid-root": {
-          //   border: "none",
-          // },
-          // "& .MuiDataGrid-cell": {
-          //   borderBottom: "none",
-          // },
-          // "& .name-column--cell": {
-          //    color: "primary",
-          // },
-          // "& .MuiDataGrid-columnHeaders": {
-          //   backgroundColor: "primary",
-          //   borderBottom: "none",
-          // },
-          // "& .MuiDataGrid-virtualScroller": {
-          //    backgroundColor: "neutral",
-          // },
-          // "& .MuiDataGrid-footerContainer": {
-          //   borderTop: "none",
-          //   // backgroundColor: colors.blueAccent[700],
-          // },
-          // "& .MuiCheckbox-root": {
-          //   // color: `${colors.greenAccent[200]} !important`,
-          // },
-        }}
       >
-        {/* <DataGrid rows={backendData} columns={columns} /> */}
         {typeof backendData.mockDataTeam === "undefined" ? (
           <p>loading...</p>
         ) : (
-          // backendData.mockDataTeam.map((team, i) => (
           <DataGrid rows={backendData.mockDataTeam} columns={columns} />
-          // ))
         )}
       </Box>
     </Box>

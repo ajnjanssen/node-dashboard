@@ -13,7 +13,10 @@ const Form = () => {
 
   return (
     <Box m="20px">
-      <Header title="CREATE USER" subtitle="Create a New User Profile" />
+      <div className="mb-6">
+      <h1 className="headTitle">CREATE USER</h1>
+      <h3 className="underTitle">Create a New User Profile</h3>
+      </div>
 
       <Formik
         onSubmit={handleFormSubmit}
@@ -39,7 +42,8 @@ const Form = () => {
             >
               <TextField
                 fullWidth
-                variant="filled"
+                variant="outlined"
+                className="p-20"
                 type="text"
                 label="First Name"
                 onBlur={handleBlur}

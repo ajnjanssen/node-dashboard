@@ -14,11 +14,6 @@ module.exports = {
     require("daisyui")
   ],
   daisyui: {
-    themes: [ "wireframe" ],
-    extend: {
-      fontFamily: {
-        'poppins': ['Poppins', 'sans-serif']
-      },
-    },
+    themes: [ "halloween" ],
   },
 }

@@ -5,8 +5,7 @@ import { tokens } from "../theme";
 import { mockGeographyData as data } from "../data/mockData";
 
 const GeographyChart = ({ isDashboard = false }) => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+
   return (
     <ResponsiveChoropleth
       data={data}
@@ -14,27 +13,27 @@ const GeographyChart = ({ isDashboard = false }) => {
         axis: {
           domain: {
             line: {
-              stroke: colors.grey[100],
+              stroke: "#ffffff",
             },
           },
           legend: {
             text: {
-              fill: colors.grey[100],
+              fill: "#ffffff",
             },
           },
           ticks: {
             line: {
-              stroke: colors.grey[100],
+              stroke: "#ffffff",
               strokeWidth: 1,
             },
             text: {
-              fill: colors.grey[100],
+              fill: "#ffffff",
             },
           },
         },
         legends: {
           text: {
-            fill: colors.grey[100],
+            fill: "#ffffff",
           },
         },
       }}
@@ -62,7 +61,7 @@ const GeographyChart = ({ isDashboard = false }) => {
                 itemWidth: 94,
                 itemHeight: 18,
                 itemDirection: "left-to-right",
-                itemTextColor: colors.grey[100],
+                itemTextColor: "#ffffff",
                 itemOpacity: 0.85,
                 symbolSize: 18,
                 effects: [

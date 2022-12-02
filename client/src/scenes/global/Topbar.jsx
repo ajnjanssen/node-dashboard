@@ -1,6 +1,4 @@
-import { Box, IconButton, useTheme} from '@mui/material'
-import { useContext } from 'react'
-import { ColorModeContext, tokens } from '../../theme'
+import { Box, IconButton} from '@mui/material'
 import InputBase from '@mui/material/InputBase';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
@@ -10,9 +8,6 @@ import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import SearchIcon from '@mui/icons-material/SearchOutlined';
 
 const Topbar = () => {
-  // const theme = useTheme();
-  // const colors = tokens(theme.palette.mode);
-  // const colorMode = useContext(ColorModeContext);
     return (
         <Box display="flex" justifyContent="space-between" p={2}>
           <Box
@@ -20,23 +15,26 @@ const Topbar = () => {
             // backgroundColor={colors.primary[400]}
             borderRadius="3px"
           >
-            <InputBase sx={{ ml: 1, flex: 1 }} placeholder="Search" />
-            <IconButton type="button" sx={{ p:1}}>
-              <SearchIcon />
+          <input type="text" placeholder="Type here" className="bg-base-300 input w-full max-w-xs text-base-content placeholder-base" />
+
+
+            <IconButton className="w-12 p-2" type="button">
+              <SearchIcon className="text-base-content"/>
             </IconButton>
+
           </Box>
           <Box display="flex">
             {/* <IconButton onClick={colorMode.toggleColorMode}>
               {theme.palette.mode === 'light' ? <DarkModeOutlinedIcon /> : <LightModeOutlinedIcon />}
             </IconButton> */}
             <IconButton>
-              <NotificationsOutlinedIcon />
+              <NotificationsOutlinedIcon className="text-base-content"/>
             </IconButton>
             <IconButton>
-              <SettingsOutlinedIcon />
+              <SettingsOutlinedIcon className="text-base-content"/>
             </IconButton>
             <IconButton>
-              <PersonOutlinedIcon />
+              <PersonOutlinedIcon className="text-base-content"/>
             </IconButton>
           </Box>
         </Box>

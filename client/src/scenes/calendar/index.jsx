@@ -10,13 +10,11 @@ import {
   ListItemText,
   Modal,
   Typography,
-  useTheme
+
 } from "@mui/material";
 import Button from "@mui/material/Button";
-import react, { useEffect, useState, useInput } from "react";
-import Header from "../../components/Header";
-import { tokens } from "../../theme";
-import { setNestedObjectValues } from "formik";
+import { useEffect, useState } from "react";
+
 
 const style = {
   position: "absolute",
@@ -31,9 +29,6 @@ const style = {
 };
 
 const Calendar = () => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-
   const [currentEvents, setCurrentEvents] = useState([]);
   const [eventTitle, setEventTitle] = useState("");
   const [event, setEvent] = useState("");
@@ -61,13 +56,11 @@ const Calendar = () => {
 
   const handleDateClick = (selected) => {
     handleOpenAdd();
-     const title = message;
-     const calendarApi = selected.view.calendar;
-
+    const title = message;
+    const calendarApi = selected.view.calendar;
     console.log(title);
     // console.log(selected);
     // calendarApi.unselect();
-
     if (title) {
       calendarApi.addEvent({
         id: `${selected.dateStr}-${title}`,
@@ -82,9 +75,10 @@ const Calendar = () => {
 
   const handleEventClick = (selected) => {
     handleOpen();
-    setCurrentSelected(selected);
-    setCurrentSelectedTitle(selected.event.title);
-    console.log(currentSelectedTitle);
+    setCurrentSelected(selected.id);
+    console.log(currentSelected);
+    // setCurrentSelectedTitle(selected.event.title);
+    // console.log(currentSelectedTitle);
   };
 
   const deleteEvent = () => {
@@ -98,27 +92,24 @@ const Calendar = () => {
   };
 
   return (
-    <Box m="20px">
-      <Header title="Calendar" subtitle="Full Calendar Interactive Page" />
-      <Box display="flex" justifyContent="space-between">
+    <Box className="m-5">
+      <div className="ml-6 ">
+      <h1 className="text-primary text-6xl font-bold  uppercase">Calendar</h1>
+      <h3 className="text-secondary text-2xl font-light">Full Calendar Interactive Page</h3>
+      </div>
+      <Box className="mt-6 flex space-between ml-6">
         <Box
-          flex="1 1 20%"
-          backgroundColor={colors.primary[400]}
-          p="15px"
-          borderRadius="4px"
+          className="flex-[1_1_20%] border rounded-lg p-4 h-3/4"
         >
-          <Typography variant="h5">Events</Typography>
+          <Typography className="text-md">Events</Typography>
           <List>
             {currentEvents.map((event) => (
               <ListItem
+              className="border rounded-lg mb-2 p-2 mg-4"
                 key={event.id}
-                sx={{
-                  backgroundColor: colors.greenAccent[500],
-                  margin: "10px 0",
-                  borderRadius: "2px",
-                }}
               >
                 <ListItemText
+                  className="text-md font-bold"
                   primary={event.title}
                   secondary={
                     <Typography>
@@ -135,50 +126,25 @@ const Calendar = () => {
           </List>
         </Box>
         {/* Modal Add Event */}
-        <Modal open={openAdd} onClose={handleCloseAdd}>
-          <Box sx={style}>
-            <Typography
+        <Modal className="w-1/3 m-auto my-auto h-60" open={openAdd} onClose={handleCloseAdd}>
+          <Box className="bg-white rounded-lg p-4 shadow-lg">
+            <p
               id="modal-modal-title"
-              className="bold"
-              variant="h4"
-              component="h2"
+              className="font-bold mb-6 text-xl"
             >
-              Event Title
-            </Typography>
+              Add a new event
+            </p>
             <input
               type="text"
               onChange={handleChange}
               value={message}
-              class="
-                form-control
-                block
-                w-full
-                px-3
-                py-1.5
-                text-base
-                font-normal
-                text-gray-700
-                bg-white bg-clip-padding
-                border border-solid border-gray-300
-                rounded
-                transition
-                ease-in-out
-                m-0
-                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-              "
+              className="mb-6 form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0
+                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               id="message"
               name="message"
               placeholder="Describe the event"
             />
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                p: 1,
-                bgcolor: "background.paper",
-                borderRadius: 1,
-              }}
-            >
+            <Box className="flex space-between rounded-sm">
               <Button onClick={handleDateClick} color="success" variant="outlined">
               Add event
             </Button>
@@ -187,7 +153,7 @@ const Calendar = () => {
         </Modal>
         {/* Modal delete Event*/}
         <Modal open={open} onClose={handleClose}>
-          <Box sx={style}>
+          <Box>
             <Typography
               id="modal-modal-title"
               className="bold"
@@ -197,13 +163,7 @@ const Calendar = () => {
               Are you sure you want to delete {currentSelectedTitle}?
             </Typography>
             <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                p: 1,
-                bgcolor: "background.paper",
-                borderRadius: 1,
-              }}
+             className="flex space-between p-1 rounded-sm"
             >
               {" "}
               <Button onClick={deleteEvent} color="error" variant="contained">
@@ -216,13 +176,13 @@ const Calendar = () => {
           </Box>
         </Modal>
         {/* CALENDAR */}
-        <Box flex="1 1 100%" ml="15px">
-          {typeof backendData.mockAgendaItems === "undefined" ? (
+        <Box className="flex-[1_1_100%] ml-6">
+          {/* {typeof backendData.mockAgendaItems === "undefined" ? (
             <p>loading...</p>
           ) : (
-            backendData.mockAgendaItems.map((item, i) => (
+            backendData.mockAgendaItems.map((item, i) => ( */}
               <FullCalendar
-                height="75vh"
+                height="70vh"
                 plugins={[
                   dayGridPlugin,
                   timeGridPlugin,
@@ -245,13 +205,11 @@ const Calendar = () => {
                 initialEvents={[
                   {
                     id: backendData.item,
-                    // title: backendData.item[i].title,
-                    // date: backendData.item[i].date,
                   },
                 ]}
               />
-            ))
-          )}
+            {/* ))
+          )} */}
         </Box>
       </Box>
     </Box>
