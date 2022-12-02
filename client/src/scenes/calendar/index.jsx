@@ -13,9 +13,10 @@ import {
   useTheme
 } from "@mui/material";
 import Button from "@mui/material/Button";
-import react, { useEffect, useState } from "react";
+import react, { useEffect, useState, useInput } from "react";
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
+import { setNestedObjectValues } from "formik";
 
 const style = {
   position: "absolute",
@@ -35,11 +36,18 @@ const Calendar = () => {
 
   const [currentEvents, setCurrentEvents] = useState([]);
   const [eventTitle, setEventTitle] = useState("");
+  const [event, setEvent] = useState("");
+  const [openAdd, setOpenAdd] = useState(false);
   const [open, setOpen] = useState(false);
   const [currentSelected, setCurrentSelected] = useState([]);
+  const [currentSelectedTitle, setCurrentSelectedTitle] = useState([]);
+
+  const [message, setMessage] = useState('');
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const handleOpenAdd = () => setOpenAdd(true);
+  const handleCloseAdd = () => setOpenAdd(false);
 
   const [backendData, setBackendData] = useState([{}]);
   // console.log(backendData);
@@ -52,11 +60,13 @@ const Calendar = () => {
   }, []);
 
   const handleDateClick = (selected) => {
-    const title = prompt("Please enter a new title for your event");
-    const calendarApi = selected.view.calendar;
-console.log(calendarApi);
+    handleOpenAdd();
+     const title = message;
+     const calendarApi = selected.view.calendar;
 
-    calendarApi.unselect();
+    console.log(title);
+    // console.log(selected);
+    // calendarApi.unselect();
 
     if (title) {
       calendarApi.addEvent({
@@ -66,22 +76,27 @@ console.log(calendarApi);
         end: selected.endStr,
         allDay: selected.allDay,
       });
+      calendarApi.unselect();
     }
   };
 
   const handleEventClick = (selected) => {
     handleOpen();
-    // selected.event.remove();
-    // setEventTitle(selected.event.title);
     setCurrentSelected(selected);
+    setCurrentSelectedTitle(selected.event.title);
+    console.log(currentSelectedTitle);
   };
 
   const deleteEvent = () => {
-    // currentSelected.remove();
-    // selected.event.remove();
     currentSelected.event.remove();
     handleClose();
   };
+
+  const handleChange = event => {
+    setMessage(event.target.value);
+    // console.log('value is:', event.target.value);
+  };
+
   return (
     <Box m="20px">
       <Header title="Calendar" subtitle="Full Calendar Interactive Page" />
@@ -119,15 +134,67 @@ console.log(calendarApi);
             ))}
           </List>
         </Box>
+        {/* Modal Add Event */}
+        <Modal open={openAdd} onClose={handleCloseAdd}>
+          <Box sx={style}>
+            <Typography
+              id="modal-modal-title"
+              className="bold"
+              variant="h4"
+              component="h2"
+            >
+              Event Title
+            </Typography>
+            <input
+              type="text"
+              onChange={handleChange}
+              value={message}
+              class="
+                form-control
+                block
+                w-full
+                px-3
+                py-1.5
+                text-base
+                font-normal
+                text-gray-700
+                bg-white bg-clip-padding
+                border border-solid border-gray-300
+                rounded
+                transition
+                ease-in-out
+                m-0
+                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+              "
+              id="message"
+              name="message"
+              placeholder="Describe the event"
+            />
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                p: 1,
+                bgcolor: "background.paper",
+                borderRadius: 1,
+              }}
+            >
+              <Button onClick={handleDateClick} color="success" variant="outlined">
+              Add event
+            </Button>
+            </Box>
+          </Box>
+        </Modal>
+        {/* Modal delete Event*/}
         <Modal open={open} onClose={handleClose}>
           <Box sx={style}>
             <Typography
               id="modal-modal-title"
-              class="bold"
+              className="bold"
               variant="h4"
               component="h2"
             >
-              Are you sure you want to delete {eventTitle}?
+              Are you sure you want to delete {currentSelectedTitle}?
             </Typography>
             <Box
               sx={{
