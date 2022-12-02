@@ -18,7 +18,7 @@ import Geography from "./scenes/geography/";
 import Calendar from "./scenes/calendar/";
 
 function App() {
-  const [theme, colorMode] = useMode();
+  // const [theme, colorMode] = useMode();
   // const [backendData, setBackendData] = useState([{}]);
 
   // useEffect(() => {
@@ -30,9 +30,11 @@ function App() {
   // }, []);
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
+  //    <ColorModeContext.Provider>
+  //  <ColorModeContext.Provider value={colorMode}>
+  //    <ThemeProvider>
+  //    <ThemeProvider theme={theme}>
+        // <CssBaseline />
         <div className="app">
           <Sidebar />
           <main className="content">
@@ -52,8 +54,8 @@ function App() {
             </Routes>
           </main>
         </div>
-      </ThemeProvider>
-    </ColorModeContext.Provider>
+  //    </ThemeProvider>
+    // </ColorModeContext.Provider>
   );
 }
 

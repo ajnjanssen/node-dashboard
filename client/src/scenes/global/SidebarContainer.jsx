@@ -4,7 +4,7 @@ import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 // import "react-pro-sidebar/dist/css/styles.css";
-import { tokens } from "../../theme";
+// import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
@@ -20,14 +20,14 @@ import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  // const colors = tokens(theme.palette.mode);
 
   return (
     <MenuItem
       active={selected === title}
       style={{
-        color: colors.grey[100],
-        // backgroundColor: colors.primary[400],
+        // color: colors.grey[100],
+        backgroundColor: 'bg-primary',
       }}
       onClick={() => setSelected(title)}
       icon={icon}
@@ -39,14 +39,14 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 };
 
 const SidebarContainer = () => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  // const theme = useTheme();
+  // const colors = tokens(theme.palette.mode);
   const [selected, setSelected] = useState("Dashboard");
   const { collapseSidebar } = useProSidebar();
 
   return (
     <div style={{ display: "flex", height: "100%" }}>
-      <Sidebar backgroundColor={colors.grey[900]}>
+      <Sidebar className="bg-primary">
         <Menu iconShape="square">
           {/* LOGO AND MENU ICON */}
           <MenuItem
@@ -61,7 +61,8 @@ const SidebarContainer = () => {
               alignItems="center"
               ml="15px"
             >
-              <Typography variant="h3" color={colors.grey[100]}>
+              {/* <Typography variant="h3" color={colors.grey[100]}> */}
+              <Typography variant="h3">
                 DASHBOARD
               </Typography>
               <IconButton>
@@ -72,8 +73,9 @@ const SidebarContainer = () => {
           <Box>
             <Link to="/">
               <Item
-                color={colors.grey[100]}
-                className="sidebar-item-test"
+                // color={colors.grey[100]}
+                color="primary"
+                className="bg-primary hover:bg-secondary"
                 title="Dashboard"
                 icon={<HomeOutlinedIcon />}
                 selected={selected}
@@ -82,14 +84,14 @@ const SidebarContainer = () => {
             </Link>
             <Typography
               variant="h6"
-              color={colors.grey[100]}
+              // color={colors.grey[100]}
               sx={{ m: "15px 0 5px 20px" }}
             >
               Data
             </Typography>
             <Link to="/team">
               <Item
-                color={colors.grey[100]}
+                // color={colors.grey[100]}
                 title="Manage Team"
                 icon={<PeopleOutlinedIcon />}
                 selected={selected}
@@ -114,7 +116,7 @@ const SidebarContainer = () => {
             </Link>
             <Typography
               variant="h6"
-              color={colors.grey[300]}
+              // color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
               Pages
@@ -145,7 +147,7 @@ const SidebarContainer = () => {
             </Link>
             <Typography
               variant="h6"
-              color={colors.grey[300]}
+              // color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
               Charts
