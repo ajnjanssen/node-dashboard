@@ -25,14 +25,11 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   return (
     <MenuItem
       active={selected === title}
-      style={{
-        // color: colors.grey[100],
-        backgroundColor: 'bg-primary',
-      }}
+      className=""
       onClick={() => setSelected(title)}
       icon={icon}
     >
-      <Typography>{title}</Typography>
+      <Typography className="text-base-content font-poppins">{title}</Typography>
       <Link to={to} />
     </MenuItem>
   );
@@ -45,50 +42,45 @@ const SidebarContainer = () => {
   const { collapseSidebar } = useProSidebar();
 
   return (
-    <div style={{ display: "flex", height: "100%" }}>
-      <Sidebar className="bg-primary">
-        <Menu iconShape="square">
+    <div className="bg-neutral h-screen" >
+      <Sidebar className="bg-neutral">
+        <Menu className="bg-neutral" iconShape="square">
           {/* LOGO AND MENU ICON */}
           <MenuItem
             onClick={() => collapseSidebar()}
-            style={{
-              margin: "10px 0 20px 0",
-            }}
+            className="mx-2 my-4"
+            // style={{
+            //   margin: "10px 0 20px 0",
+            // }}
           >
             <Box
               display="flex"
               justifyContent="space-between"
               alignItems="center"
-              ml="15px"
             >
               {/* <Typography variant="h3" color={colors.grey[100]}> */}
-              <Typography variant="h3">
+              <h1 className="text-primary text-xl font-bold">
                 DASHBOARD
-              </Typography>
+              </h1>
               <IconButton>
-                <MenuOutlinedIcon />
+                <MenuOutlinedIcon className="text-primary"/>
               </IconButton>
             </Box>
           </MenuItem>
           <Box>
             <Link to="/">
               <Item
-                // color={colors.grey[100]}
-                color="primary"
-                className="bg-primary hover:bg-secondary"
+                color="text-primary"
                 title="Dashboard"
+                className="bg-primary"
                 icon={<HomeOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
             </Link>
-            <Typography
-              variant="h6"
-              // color={colors.grey[100]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
+            <p className="text-lg font-semibold ml-5 my-4">
               Data
-            </Typography>
+            </p>
             <Link to="/team">
               <Item
                 // color={colors.grey[100]}

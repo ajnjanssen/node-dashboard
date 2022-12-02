@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 html,
 body,
@@ -24,7 +25,7 @@ body,
 }
 
 ::-webkit-scrollbar-track {
-  background: #e0e0e0;
+  @apply bg-neutral;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -39,6 +40,63 @@ body,
   position: absolute;
   height: 97vh !important;
 }
+
+.MuiDataGrid-root{
+  border: "none"!important,
+}
+
+.MuiDataGrid-cell{
+  @apply border-b-0;
+}
+
+.name-column--cell{
+   @apply text-base-content;
+}
+
+.MuiDataGrid-cell:focus{
+  @apply border-b-0;
+}
+
+.MuiDataGrid-cell:focus-within{
+  @apply border-b-0;
+}
+
+.MuiDataGrid-cell:focus-visible{
+  @apply border-b-0;
+}
+
+.MuiDataGrid-cell{
+  @apply text-base-content;
+}
+
+.name-column--cell{
+  @apply text-base-content;
+}
+
+.MuiDataGrid-columnHeaders{
+  @apply bg-neutral text-accent text-base font-bold border-b-0;
+}
+
+.MuiDataGrid-main{
+  @apply border-0 !important;
+}
+
+.MuiDataGrid-virtualScroller{
+   @apply bg-neutral;
+}
+
+.MuiDataGrid-footerContainer{
+  @apply border-t-0 bg-secondary;
+}
+
+.MuiCheckbox-root{
+  @apply text-accent !important;
+}
+
+
+
+
+
 
 /* .menu-item {
   background-color: #1f2a40 !important;

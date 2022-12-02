@@ -35,7 +35,7 @@ function App() {
   //    <ThemeProvider>
   //    <ThemeProvider theme={theme}>
         // <CssBaseline />
-        <div className="app">
+        <div className="app font-poppins">
           <Sidebar />
           <main className="content">
             <Topbar />
