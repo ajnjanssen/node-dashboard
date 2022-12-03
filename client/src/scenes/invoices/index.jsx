@@ -48,7 +48,7 @@ const Invoices = () => {
   ];
   return (
     <Box m="20px">
-      <div className="ml-6 pb-5">
+      <div className="pb-5">
       <h1 className="headTitle">Invoices</h1>
       <h3 className="underTitle">List of Invoices for Future Reference</h3>
       </div>
@@ -57,7 +57,7 @@ const Invoices = () => {
         subtitle="List of Invoices for Future Reference"
       /> */}
       <Box
-        className="mx-5"
+        className=""
         height="75vh"
       >
         {typeof backendData.mockDataInvoices === "undefined" ? (

@@ -202,6 +202,73 @@ body,
   @apply text-base-content placeholder:text-base-content !important;
 }
 
+.fc-toolbar-title{
+  @apply text-base-content !important;
+}
+
+.fc-col-header-cell-cushion {
+  @apply text-base-content !important;
+}
+
+.fc-daygrid-day-number{
+  @apply text-base-content !important;
+}
+
+.fc-next-button-primary{
+  @apply bg-primary !important;
+}
+
+.fc-prev-button-primary{
+  @apply bg-primary !important;
+}
+
+.fc-today-button-primary{
+  @apply bg-primary !important;
+}
+
+.fc-button-primary{
+  @apply bg-primary !important;
+}
+
+.fc-button-primary:hover{
+  @apply bg-primary !important;
+}
+
+.fc-button-primary:active{
+  @apply bg-primary !important;
+}
+
+.fc-button-primary:focus{
+  @apply bg-primary !important;
+}
+
+.fc-button-primary:disabled{
+  @apply bg-primary !important;
+}
+
+.fc-button-primary:disabled:hover{
+  @apply bg-primary !important;
+}
+
+.fc-button-primary:disabled:active{
+  @apply bg-primary !important;
+}
+
+.fc-button-primary:disabled:focus{
+  @apply bg-primary !important;
+}
+
+.fc-button-primary:disabled:active:hover{
+  @apply bg-primary !important;
+}
+
+.fc-scrollgrid {
+  @apply rounded-lg border text-base-content !important;
+}
+
+
+
+
 
 
 

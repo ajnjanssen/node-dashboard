@@ -73,15 +73,18 @@ const Calendar = () => {
     }
   };
 
-  const handleEventClick = (selected) => {
+  const handleEventClick = (selected, title) => {
     handleOpen();
-    setCurrentSelected(selected.id);
+    setCurrentSelected(selected);
+    setCurrentSelectedTitle(selected.title);
     console.log(currentSelected);
     // setCurrentSelectedTitle(selected.event.title);
     // console.log(currentSelectedTitle);
   };
 
-  const deleteEvent = () => {
+  const deleteEvent = (selected) => {
+    setCurrentSelectedTitle(selected.title);
+    setCurrentSelected(selected.id);
     currentSelected.event.remove();
     handleClose();
   };
@@ -95,21 +98,37 @@ const Calendar = () => {
     <Box className="m-5">
       <div className="ml-6 ">
       <h1 className="text-primary text-6xl font-bold  uppercase">Calendar</h1>
-      <h3 className="text-secondary text-2xl font-light">Full Calendar Interactive Page</h3>
+      <h3 className="text-base-content text-2xl font-light">Full Calendar Interactive Page</h3>
       </div>
       <Box className="mt-6 flex space-between ml-6">
         <Box
-          className="flex-[1_1_20%] border rounded-lg p-4 h-3/4"
+          className="flex-[1_1_20%]  rounded-lg p-4 h-3/4 bg-neutral"
         >
-          <Typography className="text-md">Events</Typography>
+          <p className="text-md font-bold text-base-content">Events</p>
           <List>
             {currentEvents.map((event) => (
               <ListItem
-              className="border rounded-lg mb-2 p-2 mg-4"
+              className="bg-neutral-focus rounded-lg mb-2 p-2 mg-4"
                 key={event.id}
               >
-                <ListItemText
-                  className="text-md font-bold"
+                <div className="">
+                  <div>
+                <p className="text-md font-bold text-secondary">
+                {event.title}
+                </p>
+                  </div>
+                  <div>
+                <p className="text-md font-bold text-base-content">
+                {formatDate(event.start, {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                </p>
+                  </div>
+                </div>
+                {/* <ListItemText
+                  className="text-md font-bold text-base-content"
                   primary={event.title}
                   secondary={
                     <Typography>
@@ -120,17 +139,17 @@ const Calendar = () => {
                       })}
                     </Typography>
                   }
-                />
+                /> */}
               </ListItem>
             ))}
           </List>
         </Box>
         {/* Modal Add Event */}
-        <Modal className="w-1/3 m-auto my-auto h-60" open={openAdd} onClose={handleCloseAdd}>
-          <Box className="bg-white rounded-lg p-4 shadow-lg">
+        <Modal className="w-1/3 m-auto my-auto h-60 " open={openAdd} onClose={handleCloseAdd}>
+          <Box className=" rounded-lg p-4 shadow-lg bg-neutral">
             <p
               id="modal-modal-title"
-              className="font-bold mb-6 text-xl"
+              className="text-base-content font-bold mb-6 text-xl"
             >
               Add a new event
             </p>
@@ -145,30 +164,28 @@ const Calendar = () => {
               placeholder="Describe the event"
             />
             <Box className="flex space-between rounded-sm">
-              <Button onClick={handleDateClick} color="success" variant="outlined">
+            <button onClick={handleEventClick} className="btn btn-active btn-primary">Add event</button>
+              {/* <Button onClick={handleDateClick} color="success" variant="">
               Add event
-            </Button>
+            </Button> */}
             </Box>
           </Box>
         </Modal>
         {/* Modal delete Event*/}
-        <Modal open={open} onClose={handleClose}>
-          <Box>
-            <Typography
-              id="modal-modal-title"
-              className="bold"
-              variant="h4"
-              component="h2"
+        <Modal className="w-1/3 m-auto my-auto h-60 " open={open} onClose={handleClose}>
+          <Box className=" rounded-lg p-4 shadow-lg bg-neutral">
+            <p
+             className="text-base-content font-bold mb-6 text-xl"
             >
-              Are you sure you want to delete {currentSelectedTitle}?
-            </Typography>
+               {currentSelectedTitle}?
+            </p>
             <Box
              className="flex space-between p-1 rounded-sm"
             >
-              {" "}
-              <Button onClick={deleteEvent} color="error" variant="contained">
+              <button onClick={deleteEvent} className="btn btn-active btn-primary">Delete event</button>
+              {/* <Button onClick={deleteEvent} color="error" variant="contained">
                 Delete
-              </Button>
+              </Button> */}
               {/* <Button onClick={handleClose} color="success" variant="outlined">
               Cancel
             </Button>  */}

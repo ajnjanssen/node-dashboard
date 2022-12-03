@@ -64,7 +64,7 @@ const Contacts = () => {
       <h3 className="underTitle">List of Contacts for Future Reference</h3>
       </div>
     <Box
-      className="mt-5"
+      className=""
       // m="40px 0 0 0"
       height="75vh"
     >
