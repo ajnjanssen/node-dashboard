@@ -231,23 +231,43 @@ app.get("/api", (req, res) => {
     mockFaqQuestions: [
       {
         id: 1,
-        question: "How to change my password?",
-        answer: "What is the best way to contact you?",
+        question: "How do I add a new user?",
+        answer: "awnser: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
       },
       {
         id: 1,
-        question: "What does the fox say?",
-        answer: "Does the fox miauw or woof?",
+        question: "Can't create a new user?",
+        answer: "awnser: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
       },
       {
         id: 1,
-        question: "What does the fox say?",
-        answer: "The fox says: Miauw!",
+        question: "New user not showing up?",
+        answer: "awnser: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
       },
       {
         id: 1,
-        question: "How to change my password?",
-        answer: "What is the best way to contact you?",
+        question: "My contact list is empty?",
+        answer: "awnser: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      },
+      {
+        id: 1,
+        question: "My invoices are not showing up?",
+        answer: "awnser: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      },
+      {
+        id: 1,
+        question: "How do i export my invoices?",
+        answer: "awnser: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      },
+      {
+        id: 1,
+        question: "How do i remove an event from my agenda?",
+        answer: "awnser: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      },
+      {
+        id: 1,
+        question: "Why are there contacts missing from my list?",
+        answer: "awnser: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
       },
     ],
     // mockTransactions: [

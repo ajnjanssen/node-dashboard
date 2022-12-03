@@ -36,6 +36,7 @@ const Calendar = () => {
   const [open, setOpen] = useState(false);
   const [currentSelected, setCurrentSelected] = useState([]);
   const [currentSelectedTitle, setCurrentSelectedTitle] = useState([]);
+  const [newEventDate, setNewEventDate] = useState([]);
 
   const [message, setMessage] = useState('');
 
@@ -45,7 +46,7 @@ const Calendar = () => {
   const handleCloseAdd = () => setOpenAdd(false);
 
   const [backendData, setBackendData] = useState([{}]);
-  // console.log(backendData);
+
   useEffect(() => {
     fetch("/api")
       .then((response) => response.json())
@@ -54,45 +55,82 @@ const Calendar = () => {
       });
   }, []);
 
-  const handleDateClick = (selected) => {
-    handleOpenAdd();
-    const title = message;
-    const calendarApi = selected.view.calendar;
-    console.log(title);
-    // console.log(selected);
-    // calendarApi.unselect();
-    if (title) {
-      calendarApi.addEvent({
-        id: `${selected.dateStr}-${title}`,
-        title,
-        start: selected.startStr,
-        end: selected.endStr,
-        allDay: selected.allDay,
-      });
-      calendarApi.unselect();
-    }
+  // updates the given message
+  const handleChange = event => {
+      setMessage(event.target.value);
+      // setMessage(event.target.value);
+      // console.log('value is:', event.target.value);
   };
 
-  const handleEventClick = (selected, title) => {
+  // Opens a modal to set a new event
+  const handleDateClick = (selected) => {
+    setMessage("");
+    // the modal opens
+    handleOpenAdd();
+    // the title is dynamically set
+    const title = message;
+
+    setNewEventDate(selected);
+    // console.log(selected.start)
+
+    // the selected date is set to the event
+    // const calendarApi = selected.view.calendar;
+    // if (title) {
+    //   calendarApi.addEvent({
+    //     id: `${selected.dateStr}-${title}`,
+    //     title,
+    //     start: selected.startStr,
+    //     end: selected.endStr,
+    //     allDay: selected.allDay,
+    //   });
+
+    // }
+
+    // the select event is unselected
+    // calendarApi.unselect();
+    // close the modal
+  };
+
+  // function to set a new event
+  const handleAddEvent = () => {
+    const calendarApi = newEventDate.view.calendar;
+    if (message) {
+      calendarApi.addEvent({
+        id: `${newEventDate.dateStr}-${currentSelectedTitle}`,
+        // id: newEventDate.message,
+        message,
+        start: newEventDate.startStr,
+        end: newEventDate.endStr,
+        allDay: newEventDate.allDay,
+      });
+      console.log(message);
+    handleCloseAdd();
+    }
+    calendarApi.unselect();
+  };
+
+
+  // open existing event
+  const handleEventClick = (selected) => {
     handleOpen();
     setCurrentSelected(selected);
-    setCurrentSelectedTitle(selected.title);
-    console.log(currentSelected);
-    // setCurrentSelectedTitle(selected.event.title);
+    setCurrentSelectedTitle(selected.el.fcSeg.eventRange.def.extendedProps.message);
+    // console.log(currentSelected);
     // console.log(currentSelectedTitle);
+    console.log(selected.el.fcSeg.eventRange.def.extendedProps.message);
+    // console.log(currentSelected);
   };
 
+  // delete existing event
   const deleteEvent = (selected) => {
     setCurrentSelectedTitle(selected.title);
     setCurrentSelected(selected.id);
     currentSelected.event.remove();
+    setMessage("");
     handleClose();
   };
 
-  const handleChange = event => {
-    setMessage(event.target.value);
-    // console.log('value is:', event.target.value);
-  };
+
 
   return (
     <Box className="m-5">
@@ -127,19 +165,7 @@ const Calendar = () => {
                 </p>
                   </div>
                 </div>
-                {/* <ListItemText
-                  className="text-md font-bold text-base-content"
-                  primary={event.title}
-                  secondary={
-                    <Typography>
-                      {formatDate(event.start, {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                      })}
-                    </Typography>
-                  }
-                /> */}
+
               </ListItem>
             ))}
           </List>
@@ -164,31 +190,21 @@ const Calendar = () => {
               placeholder="Describe the event"
             />
             <Box className="flex space-between rounded-sm">
-            <button onClick={handleEventClick} className="btn btn-active btn-primary">Add event</button>
-              {/* <Button onClick={handleDateClick} color="success" variant="">
-              Add event
-            </Button> */}
+            <button onClick={handleAddEvent} className="btn btn-active btn-primary">Add event</button>
             </Box>
           </Box>
         </Modal>
         {/* Modal delete Event*/}
         <Modal className="w-1/3 m-auto my-auto h-60 " open={open} onClose={handleClose}>
           <Box className=" rounded-lg p-4 shadow-lg bg-neutral">
-            <p
-             className="text-base-content font-bold mb-6 text-xl"
-            >
-               {currentSelectedTitle}?
-            </p>
+            <div className="flex space-x-2">
+              <p className="text-base-content mb-6 text-xl">Are you sure you want to delete </p>
+              <p className="text-base-content px-2 font-bold mb-6 text-xl bg-error rounded-lg">{currentSelectedTitle}?</p>
+            </div>
             <Box
              className="flex space-between p-1 rounded-sm"
             >
               <button onClick={deleteEvent} className="btn btn-active btn-primary">Delete event</button>
-              {/* <Button onClick={deleteEvent} color="error" variant="contained">
-                Delete
-              </Button> */}
-              {/* <Button onClick={handleClose} color="success" variant="outlined">
-              Cancel
-            </Button>  */}
             </Box>
           </Box>
         </Modal>

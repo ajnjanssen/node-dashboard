@@ -32,13 +32,13 @@ const FAQ = () => {
 
 
           <Accordion className="bg-red" defaultChecked>
-            <AccordionSummary className="bg-red" expandIcon={<ExpandMoreIcon />}>
-              <Typography className="text-lg text-primary">
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <p className="text-lg font-bold text-primary-focus">
                 {backendData.mockFaqQuestions[i].question}
-              </Typography>
+              </p>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography className="text-neutral">{backendData.mockFaqQuestions[i].answer}</Typography>
+              <Typography className="text-base-content">{backendData.mockFaqQuestions[i].answer}</Typography>
             </AccordionDetails>
           </Accordion>
         ))
