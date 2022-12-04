@@ -5,6 +5,8 @@ import {
     githubProvider,
 } from '../../config/authMethods'
 import socialMediaAuth from '../../service/auth'
+import GitHubIcon from '@mui/icons-material/GitHub'
+import { Button } from '@mui/material'
 function index() {
     const handleOnClick = async (provider) => {
         const res = await socialMediaAuth(provider)
@@ -12,8 +14,8 @@ function index() {
     }
     return (
         <div>
-            <section class="bg-gray-50 dark:bg-gray-900">
-                <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+            <section class="">
+                <div class="flex flex-col items-center justify-center  my-auto mx-auto">
                     <a
                         href="#"
                         class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
@@ -106,23 +108,25 @@ function index() {
                                     </a>
                                 </p>
                             </form>
-                            <div>
-                                <button
-                                    onClick={() =>
-                                        handleOnClick(facebookProvider)
-                                    }
-                                >
-                                    facebook
-                                </button>
-
-                                <button
-                                    onClick={() =>
-                                        handleOnClick(githubProvider)
-                                    }
-                                >
-                                    Github
-                                </button>
-
+                            <div className="flex space-between  justify-center">
+                                <div>
+                                    <button
+                                        onClick={() =>
+                                            handleOnClick(facebookProvider)
+                                        }
+                                    >
+                                        <GitHubIcon />
+                                    </button>
+                                </div>
+                                <div className="hover:bg-error w-12 h-12 flex justify-center rounded-sm">
+                                    <Button
+                                        onClick={() =>
+                                            handleOnClick(githubProvider)
+                                        }
+                                    >
+                                        <GitHubIcon className="hover:text" />
+                                    </Button>
+                                </div>
                                 <button
                                     onClick={() =>
                                         handleOnClick(googleProvider)
