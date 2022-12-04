@@ -1,16 +1,13 @@
-import { Box, useTheme } from "@mui/material";
+import { Box } from "@mui/material";
 import Header from "../../components/Header";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { tokens } from "../../theme";
 import { useEffect, useState } from "react";
 
 const FAQ = () => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
 
   const [backendData, setBackendData] = useState([{}]);
   // console.log(backendData);
@@ -23,20 +20,25 @@ const FAQ = () => {
   }, []);
 
   return (
-    <Box m="20px">
-      <Header title="FAQ" subtitle="Frequently Asked Questions Page" />
+    <Box className="m-6">
+      <div className="pb-5">
+      <h1 className="headTitle">FAQ</h1>
+      <h3 className="underTitle">Frequently Asked Questions Page</h3>
+      </div>
       {typeof backendData.mockFaqQuestions === "undefined" ? (
         <p>loading...</p>
       ) : (
         backendData.mockFaqQuestions.map((question, i) => (
-          <Accordion defaultChecked>
+
+
+          <Accordion className="bg-red" defaultChecked>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography color={colors.greenAccent[500]} variant="h5">
+              <p className="text-lg font-bold text-primary-focus">
                 {backendData.mockFaqQuestions[i].question}
-              </Typography>
+              </p>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>{backendData.mockFaqQuestions[i].answer}</Typography>
+              <Typography className="text-base-content">{backendData.mockFaqQuestions[i].answer}</Typography>
             </AccordionDetails>
           </Accordion>
         ))

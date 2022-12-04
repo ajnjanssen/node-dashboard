@@ -1,11 +1,7 @@
 import { ResponsiveLine } from "@nivo/line";
-import { useTheme } from "@mui/material";
-import { tokens } from "../theme";
 import { mockLineData as data } from "../data/mockData";
 
 const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
 
   return (
     <ResponsiveLine
@@ -14,36 +10,36 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
         axis: {
           domain: {
             line: {
-              stroke: colors.grey[100],
+              stroke: "primary",
             },
           },
           legend: {
             text: {
-              fill: colors.grey[100],
+              fill: "primary",
             },
           },
           ticks: {
             line: {
-              stroke: colors.grey[100],
+              stroke: "primary",
               strokeWidth: 1,
             },
             text: {
-              fill: colors.grey[100],
+              fill: "primary",
             },
           },
         },
         legends: {
           text: {
-            fill: colors.grey[100],
+            fill:"#ffffff",
           },
         },
         tooltip: {
           container: {
-            color: colors.primary[500],
+            color: "#ffffff",
           },
         },
       }}
-      colors={isDashboard ? { datum: "color" } : { scheme: "nivo" }} // added
+      // colors={isDashboard ? { datum: "color" } : { scheme: "nivo" }} // added
       margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
       xScale={{ type: "point" }}
       yScale={{
@@ -79,9 +75,9 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
       enableGridX={false}
       enableGridY={false}
       pointSize={8}
-      pointColor={{ theme: "background" }}
+      // pointColor={{ theme: "background" }}
       pointBorderWidth={2}
-      pointBorderColor={{ from: "serieColor" }}
+      // pointBorderColor={{ from: "serieColor" }}
       pointLabelYOffset={-12}
       useMesh={true}
       legends={[

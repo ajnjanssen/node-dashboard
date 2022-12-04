@@ -18,22 +18,13 @@ import Geography from "./scenes/geography/";
 import Calendar from "./scenes/calendar/";
 
 function App() {
-  const [theme, colorMode] = useMode();
-  // const [backendData, setBackendData] = useState([{}]);
-
-  // useEffect(() => {
-  //   fetch("/api")
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setBackendData(data);
-  //     });
-  // }, []);
-
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <div className="app">
+  //    <ColorModeContext.Provider>
+  //  <ColorModeContext.Provider value={colorMode}>
+  //    <ThemeProvider>
+  //    <ThemeProvider theme={theme}>
+        // <CssBaseline />
+        <div className="app font-poppins">
           <Sidebar />
           <main className="content">
             <Topbar />
@@ -42,18 +33,18 @@ function App() {
               <Route exact path="/team" element={<Team />} />
               <Route exact path="/invoices" element={<Invoices />} />
               <Route exact path="/contacts" element={<Contacts />} />
-              <Route exact path="/bar" element={<Bar />} />
               <Route exact path="/form" element={<Form />} />
+              <Route exact path="/faq" element={<FAQ />} />
+              <Route exact path="/calendar" element={<Calendar />} />
+              {/* <Route exact path="/bar" element={<Bar />} />
               <Route exact path="/line" element={<Line />} />
               <Route exact path="/pie" element={<Pie />} />
-              <Route exact path="/faq" element={<FAQ />} />
-              <Route exact path="/geography" element={<Geography />} />
-              <Route exact path="/calendar" element={<Calendar />} />
+              <Route exact path="/geography" element={<Geography />} /> */}
             </Routes>
           </main>
         </div>
-      </ThemeProvider>
-    </ColorModeContext.Provider>
+  //    </ThemeProvider>
+    // </ColorModeContext.Provider>
   );
 }
 

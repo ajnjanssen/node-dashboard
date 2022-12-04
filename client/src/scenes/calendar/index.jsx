@@ -10,13 +10,11 @@ import {
   ListItemText,
   Modal,
   Typography,
-  useTheme
+
 } from "@mui/material";
 import Button from "@mui/material/Button";
-import react, { useEffect, useState, useInput } from "react";
-import Header from "../../components/Header";
-import { tokens } from "../../theme";
-import { setNestedObjectValues } from "formik";
+import { useEffect, useState } from "react";
+
 
 const style = {
   position: "absolute",
@@ -31,9 +29,6 @@ const style = {
 };
 
 const Calendar = () => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-
   const [currentEvents, setCurrentEvents] = useState([]);
   const [eventTitle, setEventTitle] = useState("");
   const [event, setEvent] = useState("");
@@ -41,6 +36,7 @@ const Calendar = () => {
   const [open, setOpen] = useState(false);
   const [currentSelected, setCurrentSelected] = useState([]);
   const [currentSelectedTitle, setCurrentSelectedTitle] = useState([]);
+  const [newEventDate, setNewEventDate] = useState([]);
 
   const [message, setMessage] = useState('');
 
@@ -50,7 +46,7 @@ const Calendar = () => {
   const handleCloseAdd = () => setOpenAdd(false);
 
   const [backendData, setBackendData] = useState([{}]);
-  // console.log(backendData);
+
   useEffect(() => {
     fetch("/api")
       .then((response) => response.json())
@@ -59,170 +55,167 @@ const Calendar = () => {
       });
   }, []);
 
-  const handleDateClick = (selected) => {
-    handleOpenAdd();
-     const title = message;
-     const calendarApi = selected.view.calendar;
-
-    console.log(title);
-    // console.log(selected);
-    // calendarApi.unselect();
-
-    if (title) {
-      calendarApi.addEvent({
-        id: `${selected.dateStr}-${title}`,
-        title,
-        start: selected.startStr,
-        end: selected.endStr,
-        allDay: selected.allDay,
-      });
-      calendarApi.unselect();
-    }
+  // updates the given message
+  const handleChange = event => {
+      setMessage(event.target.value);
+      // setMessage(event.target.value);
+      // console.log('value is:', event.target.value);
   };
 
+  // Opens a modal to set a new event
+  const handleDateClick = (selected) => {
+    setMessage("");
+    // the modal opens
+    handleOpenAdd();
+    // the title is dynamically set
+    const title = message;
+
+    setNewEventDate(selected);
+    // console.log(selected.start)
+
+    // the selected date is set to the event
+    // const calendarApi = selected.view.calendar;
+    // if (title) {
+    //   calendarApi.addEvent({
+    //     id: `${selected.dateStr}-${title}`,
+    //     title,
+    //     start: selected.startStr,
+    //     end: selected.endStr,
+    //     allDay: selected.allDay,
+    //   });
+
+    // }
+
+    // the select event is unselected
+    // calendarApi.unselect();
+    // close the modal
+  };
+
+  // function to set a new event
+  const handleAddEvent = () => {
+    const calendarApi = newEventDate.view.calendar;
+    if (message) {
+      calendarApi.addEvent({
+        id: `${newEventDate.dateStr}-${currentSelectedTitle}`,
+        // id: newEventDate.message,
+        message,
+        start: newEventDate.startStr,
+        end: newEventDate.endStr,
+        allDay: newEventDate.allDay,
+      });
+      console.log(message);
+    handleCloseAdd();
+    }
+    calendarApi.unselect();
+  };
+
+
+  // open existing event
   const handleEventClick = (selected) => {
     handleOpen();
     setCurrentSelected(selected);
-    setCurrentSelectedTitle(selected.event.title);
-    console.log(currentSelectedTitle);
+    setCurrentSelectedTitle(selected.el.fcSeg.eventRange.def.extendedProps.message);
+    // console.log(currentSelected);
+    // console.log(currentSelectedTitle);
+    console.log(selected.el.fcSeg.eventRange.def.extendedProps.message);
+    // console.log(currentSelected);
   };
 
-  const deleteEvent = () => {
+  // delete existing event
+  const deleteEvent = (selected) => {
+    setCurrentSelectedTitle(selected.title);
+    setCurrentSelected(selected.id);
     currentSelected.event.remove();
+    setMessage("");
     handleClose();
   };
 
-  const handleChange = event => {
-    setMessage(event.target.value);
-    // console.log('value is:', event.target.value);
-  };
+
 
   return (
-    <Box m="20px">
-      <Header title="Calendar" subtitle="Full Calendar Interactive Page" />
-      <Box display="flex" justifyContent="space-between">
+    <Box className="m-5">
+      <div className="ml-6 ">
+      <h1 className="text-primary text-6xl font-bold  uppercase">Calendar</h1>
+      <h3 className="text-base-content text-2xl font-light">Full Calendar Interactive Page</h3>
+      </div>
+      <Box className="mt-6 flex space-between ml-6">
         <Box
-          flex="1 1 20%"
-          backgroundColor={colors.primary[400]}
-          p="15px"
-          borderRadius="4px"
+          className="flex-[1_1_20%]  rounded-lg p-4 h-3/4 bg-neutral"
         >
-          <Typography variant="h5">Events</Typography>
+          <p className="text-md font-bold text-base-content">Events</p>
           <List>
             {currentEvents.map((event) => (
               <ListItem
+              className="bg-neutral-focus rounded-lg mb-2 p-2 mg-4"
                 key={event.id}
-                sx={{
-                  backgroundColor: colors.greenAccent[500],
-                  margin: "10px 0",
-                  borderRadius: "2px",
-                }}
               >
-                <ListItemText
-                  primary={event.title}
-                  secondary={
-                    <Typography>
-                      {formatDate(event.start, {
+                <div className="">
+                  <div>
+                <p className="text-md font-bold text-secondary">
+                {event.title}
+                </p>
+                  </div>
+                  <div>
+                <p className="text-md font-bold text-base-content">
+                {formatDate(event.start, {
                         year: "numeric",
                         month: "short",
                         day: "numeric",
                       })}
-                    </Typography>
-                  }
-                />
+                </p>
+                  </div>
+                </div>
+
               </ListItem>
             ))}
           </List>
         </Box>
         {/* Modal Add Event */}
-        <Modal open={openAdd} onClose={handleCloseAdd}>
-          <Box sx={style}>
-            <Typography
+        <Modal className="w-1/3 m-auto my-auto h-60 " open={openAdd} onClose={handleCloseAdd}>
+          <Box className=" rounded-lg p-4 shadow-lg bg-neutral">
+            <p
               id="modal-modal-title"
-              className="bold"
-              variant="h4"
-              component="h2"
+              className="text-base-content font-bold mb-6 text-xl"
             >
-              Event Title
-            </Typography>
+              Add a new event
+            </p>
             <input
               type="text"
               onChange={handleChange}
               value={message}
-              class="
-                form-control
-                block
-                w-full
-                px-3
-                py-1.5
-                text-base
-                font-normal
-                text-gray-700
-                bg-white bg-clip-padding
-                border border-solid border-gray-300
-                rounded
-                transition
-                ease-in-out
-                m-0
-                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-              "
+              className="mb-6 form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0
+                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               id="message"
               name="message"
               placeholder="Describe the event"
             />
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                p: 1,
-                bgcolor: "background.paper",
-                borderRadius: 1,
-              }}
-            >
-              <Button onClick={handleDateClick} color="success" variant="outlined">
-              Add event
-            </Button>
+            <Box className="flex space-between rounded-sm">
+            <button onClick={handleAddEvent} className="btn btn-active btn-primary">Add event</button>
             </Box>
           </Box>
         </Modal>
         {/* Modal delete Event*/}
-        <Modal open={open} onClose={handleClose}>
-          <Box sx={style}>
-            <Typography
-              id="modal-modal-title"
-              className="bold"
-              variant="h4"
-              component="h2"
-            >
-              Are you sure you want to delete {currentSelectedTitle}?
-            </Typography>
+        <Modal className="w-1/3 m-auto my-auto h-60 " open={open} onClose={handleClose}>
+          <Box className=" rounded-lg p-4 shadow-lg bg-neutral">
+            <div className="flex space-x-2">
+              <p className="text-base-content mb-6 text-xl">Are you sure you want to delete </p>
+              <p className="text-base-content px-2 font-bold mb-6 text-xl bg-error rounded-lg">{currentSelectedTitle}?</p>
+            </div>
             <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                p: 1,
-                bgcolor: "background.paper",
-                borderRadius: 1,
-              }}
+             className="flex space-between p-1 rounded-sm"
             >
-              {" "}
-              <Button onClick={deleteEvent} color="error" variant="contained">
-                Delete
-              </Button>
-              {/* <Button onClick={handleClose} color="success" variant="outlined">
-              Cancel
-            </Button>  */}
+              <button onClick={deleteEvent} className="btn btn-active btn-primary">Delete event</button>
             </Box>
           </Box>
         </Modal>
         {/* CALENDAR */}
-        <Box flex="1 1 100%" ml="15px">
-          {typeof backendData.mockAgendaItems === "undefined" ? (
+        <Box className="flex-[1_1_100%] ml-6">
+          {/* {typeof backendData.mockAgendaItems === "undefined" ? (
             <p>loading...</p>
           ) : (
-            backendData.mockAgendaItems.map((item, i) => (
+            backendData.mockAgendaItems.map((item, i) => ( */}
               <FullCalendar
-                height="75vh"
+                height="70vh"
                 plugins={[
                   dayGridPlugin,
                   timeGridPlugin,
@@ -245,13 +238,11 @@ const Calendar = () => {
                 initialEvents={[
                   {
                     id: backendData.item,
-                    // title: backendData.item[i].title,
-                    // date: backendData.item[i].date,
                   },
                 ]}
               />
-            ))
-          )}
+            {/* ))
+          )} */}
         </Box>
       </Box>
     </Box>

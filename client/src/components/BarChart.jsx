@@ -5,8 +5,6 @@ import { mockBarData as data } from "../data/mockData";
 import { useEffect, useState } from "react";
 
 const BarChart = ({ isDashboard = false }) => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
 
   const [backendData, setBackendData] = useState([{}]);
   // console.log(backendData);
@@ -26,27 +24,27 @@ const BarChart = ({ isDashboard = false }) => {
         axis: {
           domain: {
             line: {
-              stroke: colors.grey[100],
+              stroke: "#ffffff",
             },
           },
           legend: {
             text: {
-              fill: colors.grey[100],
+              fill: "#ffffff",
             },
           },
           ticks: {
             line: {
-              stroke: colors.grey[100],
+              stroke: "#ffffff",
               strokeWidth: 1,
             },
             text: {
-              fill: colors.grey[100],
+              fill: "#ffffff",
             },
           },
         },
         legends: {
           text: {
-            fill: colors.grey[100],
+            fill: "#ffffff",
           },
         },
       }}

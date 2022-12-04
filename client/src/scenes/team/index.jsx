@@ -1,6 +1,6 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
+// import { tokens } from "../../theme";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
@@ -19,8 +19,8 @@ const Team = () => {
       });
   }, []);
 
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  // const theme = useTheme();
+  // const colors = tokens(theme.palette.mode);
   const columns = [
     { field: "id", headerName: "ID" },
     {
@@ -53,22 +53,19 @@ const Team = () => {
       renderCell: ({ row: { access } }) => {
         return (
           <Box
-            width="60%"
-            m="0 auto"
-            p="5px"
-            display="flex"
-            justifyContent="center"
+            className="text-base-content font-bold w-full flex justify-start py-1 px-1 my-2 bg-primary rounded-lg"
             backgroundColor={
               access === "admin"
-                ? colors.greenAccent[600]
-                : colors.greenAccent[700]
+                // ? colors.greenAccent[600]
+                // : colors.greenAccent[700]
             }
-            borderRadius="4px"
+
           >
-            {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
-            {access === "manager" && <SecurityOutlinedIcon />}
-            {access === "user" && <LockOpenOutlinedIcon />}
-            <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
+            {access === "admin" && <AdminPanelSettingsOutlinedIcon className="text-neutral"/>}
+            {access === "manager" && <SecurityOutlinedIcon className="text-neutral"/>}
+            {access === "user" && <LockOpenOutlinedIcon className="text-neutralt"/>}
+            {/* <Typography color={colors.grey[100]} sx={{ ml: "5px" }}> */}
+            <Typography className="pl-2">
               {access}
             </Typography>
           </Box>
@@ -77,44 +74,19 @@ const Team = () => {
     },
   ];
   return (
-    <Box m="20px" marginRight={2}>
-      <Header title="TEAM" subtitle="Manage your team" />
+    <Box className="m-5">
+      <div className="">
+      <h1 className="headTitle">Team</h1>
+      <h3 className="underTitle">Manage your team</h3>
+      </div>
       <Box
-        m="40px 0 0 0"
+        className="mt-6"
         height="75vh"
-        sx={{
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-cell": {
-            borderBottom: "none",
-          },
-          "& .name-column--cell": {
-            color: colors.greenAccent[300],
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[400],
-          },
-          "& .MuiDataGrid-footerContainer": {
-            borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
-          },
-          "& .MuiCheckbox-root": {
-            color: `${colors.greenAccent[200]} !important`,
-          },
-        }}
       >
-        {/* <DataGrid rows={backendData} columns={columns} /> */}
         {typeof backendData.mockDataTeam === "undefined" ? (
           <p>loading...</p>
         ) : (
-          // backendData.mockDataTeam.map((team, i) => (
           <DataGrid rows={backendData.mockDataTeam} columns={columns} />
-          // ))
         )}
       </Box>
     </Box>
