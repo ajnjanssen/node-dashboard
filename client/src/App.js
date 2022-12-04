@@ -17,22 +17,55 @@ import FAQ from './scenes/faq/'
 import Geography from './scenes/geography/'
 import Calendar from './scenes/calendar/'
 import PrivateRoutes from './utils/PrivateRoutes'
+import { Outlet } from 'react-router-dom'
 
 function App() {
+    const SidebarLayout = () => (
+        <>
+            <div className="flex w-full">
+                <div className="">
+                    <Sidebar />
+                </div>
+                <div className="w-screen">
+                    <Topbar />
+                    <Outlet />
+                </div>
+            </div>
+        </>
+    )
+
+    const [loggedIn, setLoggedIn] = useState(false)
     return (
         <div className="app font-poppins">
-            <Sidebar />
             <main className="content">
-                <Topbar />
                 <Routes>
                     <Route element={<PrivateRoutes />}>
-                        <Route exact path="/" element={<Dashboard />} />
-                        <Route exact path="/team" element={<Team />} />
-                        <Route exact path="/invoices" element={<Invoices />} />
-                        <Route exact path="/contacts" element={<Contacts />} />
-                        <Route exact path="/form" element={<Form />} />
-                        <Route exact path="/faq" element={<FAQ />} />
-                        <Route exact path="/calendar" element={<Calendar />} />
+                        <Route element={<SidebarLayout />}>
+                            <Route
+                                index
+                                exact
+                                path="/"
+                                element={<Dashboard />}
+                            />
+                            <Route exact path="/team" element={<Team />} />
+                            <Route
+                                exact
+                                path="/invoices"
+                                element={<Invoices />}
+                            />
+                            <Route
+                                exact
+                                path="/contacts"
+                                element={<Contacts />}
+                            />
+                            <Route exact path="/form" element={<Form />} />
+                            <Route exact path="/faq" element={<FAQ />} />
+                            <Route
+                                exact
+                                path="/calendar"
+                                element={<Calendar />}
+                            />
+                        </Route>
                     </Route>
                     <Route element={<Login />} path="/login" />
 

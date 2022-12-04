@@ -286,6 +286,17 @@ body,
     @apply bg-neutral !important;
 }
 
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+    @apply group-hover:fill-primary !important;
+}
+.css-ci5apu-MuiSvgIcon-root {
+    @apply hover:fill-primary !important;
+}
+
+.css-1tt292g {
+    @apply w-full;
+}
+
 /* .menu-item {
   background-color: #1f2a40 !important;
 }
