@@ -1,6 +1,6 @@
 import { ColorModeContext, useMode } from './theme'
-import { CssBaseline, ThemeProvider } from '@mui/material'
-import { Routes, Route, Router } from 'react-router-dom'
+import { CssBaseline, Switch, ThemeProvider } from '@mui/material'
+import { Routes, Route, Router, PrivateRoute } from 'react-router-dom'
 import React, { useState, useEffect } from 'react'
 import Topbar from './scenes/global/Topbar'
 import Sidebar from './scenes/global/SidebarContainer'
@@ -20,6 +20,8 @@ import Calendar from './scenes/calendar/'
 import PrivateRoutes from './utils/PrivateRoutes'
 import { Outlet } from 'react-router-dom'
 import { AuthProvider } from './service/AuthContext'
+import ForgotPassword from './scenes/forgot-password'
+import Profile from './scenes/profile'
 
 function App() {
     const SidebarLayout = () => (
@@ -50,6 +52,13 @@ function App() {
                                     path="/"
                                     element={<Dashboard />}
                                 />
+
+                                <Route
+                                    exact
+                                    path="/profile"
+                                    element={<Profile />}
+                                />
+
                                 <Route exact path="/team" element={<Team />} />
                                 <Route
                                     exact
@@ -72,8 +81,10 @@ function App() {
                         </Route>
                         <Route element={<Signup />} path="/signup" />
                         <Route element={<Login />} path="/login" />
-
-                        {/* <Route path="/" element={<Dashboard />} /> */}
+                        <Route
+                            element={<ForgotPassword />}
+                            path="/forgot-password"
+                        />
                     </Routes>
                 </AuthProvider>
             </main>

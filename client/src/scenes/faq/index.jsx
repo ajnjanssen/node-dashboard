@@ -30,7 +30,7 @@ const FAQ = () => {
                 backendData.mockFaqQuestions.map((question, i) => (
                     <Accordion className="bg-red" defaultChecked>
                         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                            <p className="text-lg font-bold text-primary-focus">
+                            <p className="text-lg font-bold text-base-content">
                                 {backendData.mockFaqQuestions[i].question}
                             </p>
                         </AccordionSummary>

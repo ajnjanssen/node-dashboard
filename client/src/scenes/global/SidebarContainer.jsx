@@ -64,23 +64,26 @@ const SidebarContainer = (provider) => {
     }
 
     return (
-        <div className="border-0 bg-base-200">
+        <div className="border-0 shadow-lg h-screen">
             <div class="mt-4 w-64 mb-4">
                 <h2 className=" pl-8 py-4 sidebar-menu-item font-bold text-lg">
                     Ultimate Dashboard
                 </h2>
             </div>
-            <aside class="w-64 rounded-md bg-neutral mt-4" aria-label="Sidebar">
+            <aside class="w-64 rounded-md mt-4" aria-label="Sidebar">
                 <div class="sidebar-menu-item">
-                    <div className=" px-4 py-4 flex bg-neutral-focus">
+                    <div className=" px-4 py-4 flex">
                         {/* {currentUser.photoURL === null ? (
                             <AccountCircleIcon />
                         ) : ( */}
-                        <img
-                            className="w-12 rounded-full"
-                            src={currentUser.photoURL}
-                            alt="avatar"
-                        />
+                        <Link to="/profile">
+                            <img
+                                className="w-12 rounded-full"
+                                src={currentUser.photoURL}
+                                alt="avatar"
+                            />
+                        </Link>
+
                         {/* )} */}
                         <div className="ml-4">
                             <p className="text-base-content my-auto">
@@ -90,6 +93,7 @@ const SidebarContainer = (provider) => {
                                 {/* {currentUser.displayName === 'undefined'
                                     ? ''
                                     : currentUser.displayName} */}
+
                                 {currentUser.displayName}
                             </p>
                         </div>
@@ -176,7 +180,7 @@ const SidebarContainer = (provider) => {
                             </ListItemButton>
                         </Link>
                     </List>
-                    <div className="absolute inset-x-0 bottom-0 w-64">
+                    <div className="absolute inset-x-0 bottom-0 mb-4 w-64">
                         <ListItemButton onClick={handleLogout}>
                             <ListItemIcon>
                                 <LogoutIcon />

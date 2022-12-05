@@ -6,6 +6,7 @@ import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined'
 import SearchIcon from '@mui/icons-material/SearchOutlined'
+import { Link } from 'react-router-dom'
 
 const Topbar = () => {
     return (
@@ -29,15 +30,21 @@ const Topbar = () => {
                 {/* <IconButton onClick={colorMode.toggleColorMode}>
               {theme.palette.mode === 'light' ? <DarkModeOutlinedIcon /> : <LightModeOutlinedIcon />}
             </IconButton> */}
-                <IconButton>
-                    <NotificationsOutlinedIcon className="text-base-content" />
-                </IconButton>
-                <IconButton>
-                    <SettingsOutlinedIcon className="text-base-content" />
-                </IconButton>
-                <IconButton>
-                    <PersonOutlinedIcon className="text-base-content" />
-                </IconButton>
+                <Link to="/profile">
+                    <IconButton>
+                        <NotificationsOutlinedIcon className="text-base-content" />
+                    </IconButton>
+                </Link>
+                <Link to="/profile">
+                    <IconButton>
+                        <SettingsOutlinedIcon className="text-base-content" />
+                    </IconButton>
+                </Link>
+                <Link to="./profile">
+                    <IconButton>
+                        <PersonOutlinedIcon className="text-base-content" />
+                    </IconButton>
+                </Link>
             </Box>
         </Box>
     )

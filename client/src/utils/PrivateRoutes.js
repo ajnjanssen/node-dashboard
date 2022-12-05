@@ -1,11 +1,11 @@
-import { Outlet, Navigate } from 'react-router-dom'
+import { Outlet, Navigate, Route } from 'react-router-dom'
 import { useAuth } from '../service/AuthContext'
 
 export const PrivateRoutes = ({ component: Component, ...rest }) => {
-    const auth = { token: true }
+    // const auth = { token: true }
     const { currentUser } = useAuth()
 
-    return auth.token ? (
+    return (
         <Outlet
             {...rest}
             render={(props) => {
@@ -16,8 +16,6 @@ export const PrivateRoutes = ({ component: Component, ...rest }) => {
                 )
             }}
         />
-    ) : (
-        <Navigate to="/login" />
     )
 }
 

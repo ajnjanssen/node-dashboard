@@ -136,14 +136,14 @@ const Calendar = () => {
                 <h3 className="underTitle">Full Calendar Interactive Page</h3>
             </div>
             <Box className="mt-6 flex space-between">
-                <Box className="flex-[1_1_20%]  rounded-lg p-4 h-3/4 bg-neutral">
+                <Box className="flex-[1_1_20%]  rounded-lg p-4 h-3/4 border">
                     <p className="text-md font-bold text-base-content">
                         Events
                     </p>
                     <List>
                         {currentEvents.map((event) => (
                             <ListItem
-                                className="bg-neutral-focus rounded-lg mb-2 p-2 mg-4"
+                                className=" rounded-lg mb-2 p-2 mg-4"
                                 key={event.id}
                             >
                                 <div className="">
@@ -172,7 +172,7 @@ const Calendar = () => {
                     open={openAdd}
                     onClose={handleCloseAdd}
                 >
-                    <Box className=" rounded-lg p-4 shadow-lg bg-neutral">
+                    <Box className=" rounded-lg p-4 shadow-lg bg-base-300">
                         <p
                             id="modal-modal-title"
                             className="text-base-content font-bold mb-6 text-xl"
@@ -183,8 +183,8 @@ const Calendar = () => {
                             type="text"
                             onChange={handleChange}
                             value={message}
-                            className="mb-6 form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0
-                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                            className="mb-6 form-control block w-full px-3 py-1.5 text-base font-normal text-base-content bg-base-200 bg-clip-padding border border-solid border-base-100 rounded transition ease-in-out m-0
+                focus:text-base-content focus:bg-base-100 focus:border-base-content focus:outline-none"
                             id="message"
                             name="message"
                             placeholder="Describe the event"
@@ -205,7 +205,7 @@ const Calendar = () => {
                     open={open}
                     onClose={handleClose}
                 >
-                    <Box className=" rounded-lg p-4 shadow-lg bg-neutral">
+                    <Box className=" rounded-lg p-4 shadow-lg bg-base-300">
                         <div className="flex space-x-2">
                             <p className="text-base-content mb-6 text-xl">
                                 Are you sure you want to delete{' '}

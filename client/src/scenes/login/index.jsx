@@ -89,6 +89,15 @@ function Login() {
                                 />
                             </div>
 
+                            <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                                {/* I don't know my password.{' '} */}
+                                <Link to="/forgot-password">
+                                    <a class="font-medium text-primary-600 hover:underline dark:text-primary-500">
+                                        Forgot password?
+                                    </a>
+                                </Link>
+                            </p>
+
                             <button
                                 disabled={loading}
                                 type="submit"
