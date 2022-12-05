@@ -12,32 +12,30 @@ import { Button } from '@mui/material'
 import { useAuth } from '../../service/AuthContext'
 import { Link, useNavigate } from 'react-router-dom'
 
-function Login() {
+function Signup() {
     const emailRef = useRef()
     const passwordRef = useRef()
-    const { login } = useAuth()
+    const passwordConfirmRef = useRef()
+    const { signup } = useAuth()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
-
     async function handleSubmit(e) {
         e.preventDefault()
+
+        if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+            return setError('Passwords do not match')
+        }
 
         try {
             setError('')
             setLoading(true)
-            await login(emailRef.current.value, passwordRef.current.value)
+            await signup(emailRef.current.value, passwordRef.current.value)
             navigate('/')
         } catch {
-            setError('Failed to Sign in')
+            setError('Failed to create an account')
         }
         setLoading(false)
-    }
-
-    const handleOnClick = async (provider) => {
-        const res = await socialMediaAuth(provider)
-        navigate('/')
-        console.log(res)
     }
 
     return (
@@ -46,7 +44,7 @@ function Login() {
                 <div class="mt-52 mb-44 backdrop-blur-md w-1/3 rounded-lg  shadow  bg-neutral bg-opacity-95 ">
                     <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <h1 class="text-xl font-bold leading-tight tracking-tightmd:text-2xl text-primary">
-                            Sign in to your account
+                            Create a new account
                         </h1>
                         {error && <div className="text-red-500">{error}</div>}
                         <form
@@ -88,63 +86,43 @@ function Login() {
                                     ref={passwordRef}
                                 />
                             </div>
+                            <div>
+                                <label
+                                    for="password"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                >
+                                    Password confirmation
+                                </label>
+                                <input
+                                    type="password"
+                                    name="password"
+                                    id="password"
+                                    placeholder="••••••••"
+                                    class="focus:outline-none bg-neutral-focus text-base-content sm:text-sm rounded-lg  block w-full p-2.5"
+                                    required
+                                    ref={passwordConfirmRef}
+                                />
+                            </div>
 
                             <button
                                 disabled={loading}
                                 type="submit"
                                 class="w-full text-white bg-primary hover:bg-primary-focus focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                             >
-                                Sign in
+                                Sign up
                             </button>
                             <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                                Don't have an account?{' '}
-                                <Link to="/signup">
-                                    <a class="font-medium text-primary-600 hover:underline dark:text-primary-500">
-                                        Sign up
+                                Already have an account?{' '}
+                                <Link to="/login">
+                                    <a
+                                        // to="./login"
+                                        class="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                                    >
+                                        Sign in
                                     </a>
                                 </Link>
                             </p>
                         </form>
-                        <div className="flex space-between space-x-4 mt-10  justify-center">
-                            <div className=" w-12 h-12 flex justify-center rounded-sm">
-                                <Button
-                                    disabled
-                                    onClick={() =>
-                                        handleOnClick(facebookProvider)
-                                    }
-                                >
-                                    <FacebookIcon
-                                        color="disabled"
-                                        className="hover:text-primary"
-                                    />
-                                </Button>
-                            </div>
-                            <div className="w-12 h-12 flex justify-center rounded-sm">
-                                <Button
-                                    onClick={() =>
-                                        handleOnClick(githubProvider)
-                                    }
-                                >
-                                    <GitHubIcon
-                                        color="primary"
-                                        className="hover:text-primary"
-                                    />
-                                </Button>
-                            </div>
-                            <div className="group  w-12 h-12 flex justify-center rounded-sm">
-                                <Button
-                                    className="group-hover:text-primary"
-                                    onClick={() =>
-                                        handleOnClick(googleProvider)
-                                    }
-                                >
-                                    <GoogleIcon
-                                        color="primary"
-                                        className="hover:text-primary"
-                                    />
-                                </Button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -282,4 +260,4 @@ function Login() {
     )
 }
 
-export default Login
+export default Signup

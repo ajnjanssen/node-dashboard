@@ -1,50 +1,49 @@
-import { Box } from "@mui/material";
-import Header from "../../components/Header";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useEffect, useState } from "react";
+import { Box } from '@mui/material'
+import Header from '../../components/Header'
+import Accordion from '@mui/material/Accordion'
+import AccordionSummary from '@mui/material/AccordionSummary'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import Typography from '@mui/material/Typography'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { useEffect, useState } from 'react'
 
 const FAQ = () => {
+    const [backendData, setBackendData] = useState([{}])
+    // console.log(backendData);
+    useEffect(() => {
+        fetch('/api')
+            .then((response) => response.json())
+            .then((data) => {
+                setBackendData(data)
+            })
+    }, [])
 
-  const [backendData, setBackendData] = useState([{}]);
-  // console.log(backendData);
-  useEffect(() => {
-    fetch("/api")
-      .then((response) => response.json())
-      .then((data) => {
-        setBackendData(data);
-      });
-  }, []);
+    return (
+        <Box className="m-6">
+            <div className="pb-5">
+                <h1 className="headTitle">FAQ</h1>
+                <h3 className="underTitle">Frequently Asked Questions Page</h3>
+            </div>
+            {typeof backendData.mockFaqQuestions === 'undefined' ? (
+                <p>loading...</p>
+            ) : (
+                backendData.mockFaqQuestions.map((question, i) => (
+                    <Accordion className="bg-red" defaultChecked>
+                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                            <p className="text-lg font-bold text-primary-focus">
+                                {backendData.mockFaqQuestions[i].question}
+                            </p>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography className="text-base-content">
+                                {backendData.mockFaqQuestions[i].answer}
+                            </Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                ))
+            )}
+        </Box>
+    )
+}
 
-  return (
-    <Box className="m-6">
-      <div className="pb-5">
-      <h1 className="headTitle">FAQ</h1>
-      <h3 className="underTitle">Frequently Asked Questions Page</h3>
-      </div>
-      {typeof backendData.mockFaqQuestions === "undefined" ? (
-        <p>loading...</p>
-      ) : (
-        backendData.mockFaqQuestions.map((question, i) => (
-
-
-          <Accordion className="bg-red" defaultChecked>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <p className="text-lg font-bold text-primary-focus">
-                {backendData.mockFaqQuestions[i].question}
-              </p>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography className="text-base-content">{backendData.mockFaqQuestions[i].answer}</Typography>
-            </AccordionDetails>
-          </Accordion>
-        ))
-      )}
-    </Box>
-  );
-};
-
-export default FAQ;
+export default FAQ

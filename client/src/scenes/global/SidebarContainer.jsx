@@ -1,23 +1,12 @@
 import react, { useState } from 'react'
-import { Sidebar, Menu, MenuItem, useProSidebar } from 'react-pro-sidebar'
+import { MenuItem } from 'react-pro-sidebar'
 import List from '@mui/material/List'
-import { Box, IconButton, Typography } from '@mui/material'
-import { Link } from 'react-router-dom'
-// import "react-pro-sidebar/dist/css/styles.css";
-// import { tokens } from "../../theme";
+import { Typography } from '@mui/material'
+import { Link, useNavigate } from 'react-router-dom'
+
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
-import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined'
-import ContactsOutlinedIcon from '@mui/icons-material/ContactsOutlined'
-import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined'
-import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined'
-import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined'
-import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined'
 import LogoutIcon from '@mui/icons-material/Logout'
-import BarChartOutlinedIcon from '@mui/icons-material/BarChartOutlined'
-import PieChartOutlineOutlinedIcon from '@mui/icons-material/PieChartOutlineOutlined'
-import TimelineOutlinedIcon from '@mui/icons-material/TimelineOutlined'
-import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined'
-import MapOutlinedIcon from '@mui/icons-material/MapOutlined'
+import LiveHelpIcon from '@mui/icons-material/LiveHelp'
 
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
@@ -29,8 +18,9 @@ import SendIcon from '@mui/icons-material/Send'
 import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
 import StarBorder from '@mui/icons-material/StarBorder'
-import ListSubheader from '@mui/material/ListSubheader'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+
+import { useAuth, logout } from '../../service/AuthContext'
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
     // const colors = tokens(theme.palette.mode);
@@ -50,14 +40,29 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
     )
 }
 
-const SidebarContainer = () => {
+const SidebarContainer = (provider) => {
     const [selected, setSelected] = useState('Dashboard')
-    const { collapseSidebar } = useProSidebar()
     const [open, setOpen] = useState(false)
+    const [error, setError] = useState('')
+    const navigate = useNavigate()
+    const { currentUser } = useAuth()
+    console.log(currentUser)
 
     const handleClick = () => {
         setOpen(!open)
     }
+
+    async function handleLogout() {
+        setError('')
+
+        try {
+            await logout()
+            navigate('/login')
+        } catch {
+            setError('Failed to log out')
+        }
+    }
+
     return (
         <div className="border-0 bg-base-200">
             <div class="mt-4 w-64 mb-4">
@@ -68,16 +73,24 @@ const SidebarContainer = () => {
             <aside class="w-64 rounded-md bg-neutral mt-4" aria-label="Sidebar">
                 <div class="sidebar-menu-item">
                     <div className=" px-4 py-4 flex bg-neutral-focus">
+                        {/* {currentUser.photoURL === null ? (
+                            <AccountCircleIcon />
+                        ) : ( */}
                         <img
-                            className="w-12"
-                            src="https://buffer.com/library/content/images/2020/05/Ash-Read.png"
+                            className="w-12 rounded-full"
+                            src={currentUser.photoURL}
+                            alt="avatar"
                         />
+                        {/* )} */}
                         <div className="ml-4">
                             <p className="text-base-content my-auto">
                                 Welcome back,
                             </p>
                             <p className="text-base-content my-auto font-bold">
-                                $user
+                                {/* {currentUser.displayName === 'undefined'
+                                    ? ''
+                                    : currentUser.displayName} */}
+                                {currentUser.displayName}
                             </p>
                         </div>
                     </div>
@@ -157,21 +170,19 @@ const SidebarContainer = () => {
                         <Link to="/faq">
                             <ListItemButton>
                                 <ListItemIcon>
-                                    <DraftsIcon />
+                                    <LiveHelpIcon />
                                 </ListItemIcon>
                                 <ListItemText primary="Faq" />
                             </ListItemButton>
                         </Link>
                     </List>
                     <div className="absolute inset-x-0 bottom-0 w-64">
-                        <Link>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <LogoutIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Sign out" />
-                            </ListItemButton>
-                        </Link>
+                        <ListItemButton onClick={handleLogout}>
+                            <ListItemIcon>
+                                <LogoutIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Sign out" />
+                        </ListItemButton>
                     </div>
                 </div>
             </aside>
