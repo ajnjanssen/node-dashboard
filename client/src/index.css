@@ -74,7 +74,7 @@ body,
 }
 
 .MuiDataGrid-columnHeaders {
-    @apply text-accent text-base font-bold border-b-0;
+    @apply text-base-content text-base font-bold border-b-0;
 }
 
 .MuiDataGrid-main {
@@ -93,11 +93,11 @@ body,
 }
 
 .MuiAccordionSummary-root {
-    @apply bg-base-content !important;
+    @apply !important;
 }
 
 .MuiAccordionDetails-root {
-    @apply text-base-content bg-base-content !important;
+    @apply text-base-content !important;
 }
 
 .bOQEtf {
@@ -212,51 +212,36 @@ body,
 }
 
 .fc-next-button-primary {
-    @apply bg-primary !important;
+    @apply bg-base-100 !important;
 }
 
 .fc-prev-button-primary {
-    @apply bg-primary !important;
+    @apply bg-base-200 !important;
 }
 
 .fc-today-button-primary {
-    @apply bg-primary !important;
+    @apply bg-base-100 !important;
+}
+
+.fc-icon {
+    @apply text-base-content !important;
+}
+
+.fc-today-button {
+    /* @apply bg-base !important; */
+    @apply bg-base-100 !important;
 }
 
 .fc-button-primary {
-    @apply bg-primary !important;
+    @apply bg-base-200 !important;
 }
 
-.fc-button-primary:hover {
-    @apply bg-primary !important;
-}
-
-.fc-button-primary:active {
-    @apply bg-primary !important;
-}
-
-.fc-button-primary:focus {
-    @apply bg-primary !important;
+.fc-button {
+    @apply bg-base-200 text-base-content !important;
 }
 
 .fc-button-primary:disabled {
-    @apply bg-primary !important;
-}
-
-.fc-button-primary:disabled:hover {
-    @apply bg-primary !important;
-}
-
-.fc-button-primary:disabled:active {
-    @apply bg-primary !important;
-}
-
-.fc-button-primary:disabled:focus {
-    @apply bg-primary !important;
-}
-
-.fc-button-primary:disabled:active:hover {
-    @apply bg-primary !important;
+    @apply bg-base-300 !important;
 }
 
 .fc-scrollgrid {
@@ -264,11 +249,15 @@ body,
 }
 
 .MuiAccordionSummary-root {
-    @apply bg-neutral !important;
+    @apply bg-base-200 !important;
+}
+
+.fc-daygrid-day {
+    @apply bg-base-300 !important;
 }
 
 .MuiAccordionDetails-root {
-    @apply bg-neutral-focus text-error !important;
+    @apply bg-base-300 !important;
 }
 
 .MuiSvgIcon-root {
@@ -276,7 +265,7 @@ body,
 }
 
 .MuiList-root {
-    @apply bg-neutral !important;
+    @apply bg-base-100 !important;
 }
 
 .MuiList-subheader {
@@ -284,6 +273,17 @@ body,
 }
 .css-uob957-MuiListSubheader-root {
     @apply bg-neutral !important;
+}
+
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+    @apply group-hover:fill-primary !important;
+}
+.css-ci5apu-MuiSvgIcon-root {
+    @apply hover:fill-primary !important;
+}
+
+.css-1tt292g {
+    @apply w-full;
 }
 
 /* .menu-item {
